@@ -7,15 +7,7 @@ import javax.swing.text.html.HTMLDocument.RunElement;
 public class mathPhrases {
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
-    String math = input.nextLine();
-    String[] phrase = math.split("\\s+");
-    StringBuilder phraseMut = new StringBuilder();
-
-    for (int i = 0; i < phrase.length; i++) {
-      phraseMut.append(phrase[i]);
-    }
-
-    int[] index = findIndexOfParenthesis(phraseMut);
+    StringBuilder phraseMut = new StringBuilder(input.nextLine().replace(" ", ""));
     int result = calculate(phraseMut);
     System.out.println(result);
   }
