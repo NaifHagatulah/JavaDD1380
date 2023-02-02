@@ -40,8 +40,12 @@ public class helper {
     char[] fullPhrase = new char[phrase.length() ];
     phrase.getChars(0, phrase.length(), fullPhrase, 0);
     char[] result = doArthmetic(fullPhrase);
-    return charArrayToInt(result, 0, result.length);
+    if(result[0] == '-'){
+      return   -1 * charArrayToInt(result, 1, result.length);
 
+    }
+    return   -1 * charArrayToInt(result, 1, result.length);
+    
 
     
   }
@@ -67,13 +71,35 @@ public class helper {
       valid = 0;
         if (value.charAt(i) == '+' || value.charAt(i) == '-' || value.charAt(i) == '*' || value.charAt(i) == '/') {
             indexImproved.add(i);
+            System.out.println(value);
           }
         if(value.charAt(i) == '*'){
                 for(int j = i + 1; j < value.length(); j++){
                     if (value.charAt(j) == '+' || value.charAt(j) == '-' || value.charAt(j) == '*' || value.charAt(j) == '/') {
+                      if(j != i + 1){ // se till att de inte är negativt mitt i multin tog bort de nu men kopiera det vid den gula under valid = 1!
                         indexImproved.add(j);
                         j = value.length();
                         valid  = 1;
+                      }
+                      else if(j == i+1 && value.charAt(j) == '-' && indexImproved.size() > 1){
+                        value.deleteCharAt(j);
+                        if(value.charAt(indexImproved.get(indexImproved.size() - 2) ) == '-'){
+                          value.replace((indexImproved.get(indexImproved.size() - 2) ), (indexImproved.get(indexImproved.size() - 2) + 1), "+");
+                        }
+                        else if(value.charAt(indexImproved.get(indexImproved.size() - 2) ) == '+'){
+                          value.replace((indexImproved.get(indexImproved.size() - 2) ), (indexImproved.get(indexImproved.size() - 2) + 1), "-");
+                          System.out.println(value);
+                        }
+                      }
+                      else if(j == i+1 && value.charAt(j) == '-' && indexImproved.size() == 1){
+                        value.deleteCharAt(j);
+                        System.out.println(value);
+                        value.insert(0, '-');
+                        System.out.println(value);
+                        indexImproved.add(0, 0);
+                        indexImproved.set(1, indexImproved.get(indexImproved.size() - 1) + 1 );
+                        
+                      }
                 }
             }
             if(indexImproved.size() > 2 && valid == 1){
@@ -158,9 +184,30 @@ public class helper {
          else if(value.charAt(i) == '/'){
             for(int j = i + 1; j < value.length(); j++){
                 if (value.charAt(j) == '+' || value.charAt(j) == '-' || value.charAt(j) == '*' || value.charAt(j) == '/') {
+                  if(j != i + 1){ // se till att de inte är negativt mitt i multin tog bort de nu men kopiera det vid den gula under valid = 1!
                     indexImproved.add(j);
                     j = value.length();
                     valid  = 1;
+                  }
+                  else if(j == i+1 && value.charAt(j) == '-' && indexImproved.size() > 1){
+                    value.deleteCharAt(j);
+                    if(value.charAt(indexImproved.get(indexImproved.size() - 2) ) == '-'){
+                      value.replace((indexImproved.get(indexImproved.size() - 2) ), (indexImproved.get(indexImproved.size() - 2) + 1), "+");
+                    }
+                    else if(value.charAt(indexImproved.get(indexImproved.size() - 2) ) == '+'){
+                      value.replace((indexImproved.get(indexImproved.size() - 2) ), (indexImproved.get(indexImproved.size() - 2) + 1), "-");
+                      System.out.println(value);
+                    }
+                  }
+                  else if(j == i+1 && value.charAt(j) == '-' && indexImproved.size() == 1){
+                    value.deleteCharAt(j);
+                    System.out.println(value);
+                    value.insert(0, '-');
+                    System.out.println(value);
+                    indexImproved.add(0, 0);
+                    indexImproved.set(1, indexImproved.get(indexImproved.size() - 1) + 1 );
+                    
+                  }
             }
         }
         if(indexImproved.size() > 2 && valid == 1){
@@ -213,8 +260,7 @@ public class helper {
         i = 0;
     }
     else if(indexImproved.size() == 2  && valid == 0){ // en sträng med endast 2 tecken och multi på sista positionen dvs slutet behanlda som speciall fall.
-      char[] valueOneChar = new char[(int)indexImproved.get(indexImproved.size() - 1) - (int)indexImproved.get(indexImproved.size() - 2) - 1];
-      value.getChars((int)indexImproved.get(indexImproved.size() - 2) + 1, (int)indexImproved.get(indexImproved.size() - 1) , valueOneChar, 0);
+      char[] valueOneChar = new char[(int)indexImproved.get(indexImproved.size() - 1) - (int)indexImproved.get(indexImproved.size() - 2) - 1];      value.getChars((int)indexImproved.get(indexImproved.size() - 2) + 1, (int)indexImproved.get(indexImproved.size() - 1) , valueOneChar, 0);
       int valueOneint = charArrayToInt(valueOneChar, 0, valueOneChar.length);
       char[] valueTwoChar = new char[value.length() -  (int)indexImproved.get(indexImproved.size() -1)  - 1];
       value.getChars( (int)indexImproved.get(indexImproved.size() -1) + 1, value.length(), valueTwoChar, 0);
@@ -243,11 +289,13 @@ public class helper {
     }
   }
 }
-for(int j = 0; j < indexImproved.size(); j--){
+for(int j = 0; j < indexImproved.size(); j++){
   if(indexImproved.size() == 1){
 
   }
   else if(indexImproved.size() > 1 ){
+    System.out.println(value.charAt(indexImproved.get(indexImproved.size() - 1) - 1));
+    if( value.charAt(indexImproved.get(indexImproved.size() - 1) - 1) != '-' && value.charAt(indexImproved.get(indexImproved.size() - 1) - 1) != '+'  ){
     char[] valueOneChar = new char[(int)indexImproved.get(indexImproved.size() - 1) - (int)indexImproved.get(indexImproved.size() - 2) - 1];
     value.getChars((int)indexImproved.get(indexImproved.size() - 2) + 1, (int)indexImproved.get(indexImproved.size() - 1) , valueOneChar, 0);
     int valueOneint = charArrayToInt(valueOneChar, 0, valueOneChar.length);
@@ -270,6 +318,15 @@ for(int j = 0; j < indexImproved.size(); j--){
     indexImproved.remove(indexImproved.size() - 1);
 
   }
+  else if( value.charAt(indexImproved.get(indexImproved.size() - 1) - 1) == '+' ){
+    value.setCharAt(indexImproved.get(indexImproved.size() - 1) - 1, '-');
+    value.deleteCharAt(indexImproved.get(indexImproved.size() - 1) );
+    indexImproved.remove(indexImproved.size() - 1);
+    
+    System.out.print(value);
+
+  }
+}
 }
 //now we have the index for all the addition and this should be a breeze
     char[] newArray = new char[value.length()];
