@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.text.html.HTMLDocument.RunElement;
+import javax.xml.validation.Validator;
 
 public class helper {
   public static void main(String[] args) {
@@ -44,7 +45,7 @@ public class helper {
       return   -1 * charArrayToInt(result, 1, result.length);
 
     }
-    return   -1 * charArrayToInt(result, 1, result.length);
+    return charArrayToInt(result, 0, result.length);
     
 
     
@@ -71,7 +72,6 @@ public class helper {
       valid = 0;
         if (value.charAt(i) == '+' || value.charAt(i) == '-' || value.charAt(i) == '*' || value.charAt(i) == '/') {
             indexImproved.add(i);
-            System.out.println(value);
           }
         if(value.charAt(i) == '*'){
                 for(int j = i + 1; j < value.length(); j++){
@@ -88,14 +88,11 @@ public class helper {
                         }
                         else if(value.charAt(indexImproved.get(indexImproved.size() - 2) ) == '+'){
                           value.replace((indexImproved.get(indexImproved.size() - 2) ), (indexImproved.get(indexImproved.size() - 2) + 1), "-");
-                          System.out.println(value);
                         }
                       }
                       else if(j == i+1 && value.charAt(j) == '-' && indexImproved.size() == 1){
                         value.deleteCharAt(j);
-                        System.out.println(value);
                         value.insert(0, '-');
-                        System.out.println(value);
                         indexImproved.add(0, 0);
                         indexImproved.set(1, indexImproved.get(indexImproved.size() - 1) + 1 );
                         
@@ -112,9 +109,7 @@ public class helper {
                 int resultInt = valueOneint * valueTwoInt;
                 char[] resultChar = ("" + resultInt).toCharArray();
                 value.delete((int)indexImproved.get(indexImproved.size() - 3) + 1, (int)indexImproved.get(indexImproved.size() - 1));
-                System.out.println(value);
                 value.insert((int)indexImproved.get(indexImproved.size() - 2) - valueOneChar.length , resultChar, 0, resultChar.length);
-                System.out.println(value);
                 indexImproved.remove(indexImproved.size() - 1);
                 indexImproved.remove(indexImproved.size() - 1);
                 i  = indexImproved.get(indexImproved.size() - 1) + 1;
@@ -129,9 +124,7 @@ public class helper {
                 int resultInt = valueOneint * valueTwoInt;
                 char[] resultChar = ("" + resultInt).toCharArray();
                 value.delete((int)indexImproved.get(indexImproved.size() - 2) + 1, value.length());
-                System.out.println(value);
                 value.insert((int)indexImproved.get(indexImproved.size() - 1) - valueOneChar.length , resultChar, 0, resultChar.length);
-                System.out.println(value);
                 indexImproved.remove(indexImproved.size() - 1);
             }
             else if(indexImproved.size() == 2  && valid == 1){ // Då har vi något som är i början och har mer saker efter.
@@ -144,9 +137,7 @@ public class helper {
                 int resultInt = valueOneint * valueTwoInt;
                 char[] resultChar = ("" + resultInt).toCharArray();
                 value.delete(0, (int)indexImproved.get(indexImproved.size() - 1));
-                System.out.println(value);
                 value.insert(0 , resultChar, 0, resultChar.length);
-                System.out.println(value);
                 indexImproved.remove(indexImproved.size() - 1);
                 indexImproved.remove(indexImproved.size() - 1);
                 i = 0;
@@ -161,9 +152,7 @@ public class helper {
               int resultInt = valueOneint * valueTwoInt;
               char[] resultChar = ("" + resultInt).toCharArray();
               value.delete((int)indexImproved.get(indexImproved.size() - 2) + 1 , value.length());
-              System.out.println(value);
               value.insert((int)indexImproved.get(indexImproved.size() - 2) + 1 , resultChar, 0, resultChar.length);
-              System.out.println(value);
               indexImproved.remove(indexImproved.size() - 1);
             } //slutet av en sträng ligger multi
             else if(indexImproved.size() == 1){
@@ -176,9 +165,8 @@ public class helper {
                 int resultInt = valueOneint * valueTwoInt;
                 char[] resultChar = ("" + resultInt).toCharArray();
                 value.delete(0, value.length());
-                System.out.println(value);
                 value.insert(0 , resultChar, 0, resultChar.length);
-                System.out.println(value);
+                indexImproved.remove(0);
             }
         }
          else if(value.charAt(i) == '/'){
@@ -196,14 +184,11 @@ public class helper {
                     }
                     else if(value.charAt(indexImproved.get(indexImproved.size() - 2) ) == '+'){
                       value.replace((indexImproved.get(indexImproved.size() - 2) ), (indexImproved.get(indexImproved.size() - 2) + 1), "-");
-                      System.out.println(value);
                     }
                   }
                   else if(j == i+1 && value.charAt(j) == '-' && indexImproved.size() == 1){
                     value.deleteCharAt(j);
-                    System.out.println(value);
                     value.insert(0, '-');
-                    System.out.println(value);
                     indexImproved.add(0, 0);
                     indexImproved.set(1, indexImproved.get(indexImproved.size() - 1) + 1 );
                     
@@ -220,9 +205,7 @@ public class helper {
           int resultInt = valueOneint / valueTwoInt;
           char[] resultChar = ("" + resultInt).toCharArray();
           value.delete((int)indexImproved.get(indexImproved.size() - 3) + 1, (int)indexImproved.get(indexImproved.size() - 1));
-          System.out.println(value);
           value.insert((int)indexImproved.get(indexImproved.size() - 2) - valueOneChar.length , resultChar, 0, resultChar.length);
-          System.out.println(value);
           indexImproved.remove(indexImproved.size() - 1);
           indexImproved.remove(indexImproved.size() - 1);
           i  = indexImproved.get(indexImproved.size() - 1) + 1;
@@ -237,9 +220,7 @@ public class helper {
           int resultInt = valueOneint / valueTwoInt;
           char[] resultChar = ("" + resultInt).toCharArray();
           value.delete((int)indexImproved.get(indexImproved.size() - 2) + 1, value.length());
-          System.out.println(value);
           value.insert((int)indexImproved.get(indexImproved.size() - 1) - valueOneChar.length , resultChar, 0, resultChar.length);
-          System.out.println(value);
           indexImproved.remove(indexImproved.size() - 1);
       }
       else if(indexImproved.size() == 2  && valid == 1){ // Då har vi något som är i början och har mer saker efter.
@@ -252,9 +233,7 @@ public class helper {
         int resultInt = valueOneint / valueTwoInt;
         char[] resultChar = ("" + resultInt).toCharArray();
         value.delete(0, (int)indexImproved.get(indexImproved.size() - 1));
-        System.out.println(value);
         value.insert(0 , resultChar, 0, resultChar.length);
-        System.out.println(value);
         indexImproved.remove(indexImproved.size() - 1);
         indexImproved.remove(indexImproved.size() - 1);
         i = 0;
@@ -268,9 +247,7 @@ public class helper {
       int resultInt = valueOneint / valueTwoInt;
       char[] resultChar = ("" + resultInt).toCharArray();
       value.delete((int)indexImproved.get(indexImproved.size() - 2) + 1 , value.length());
-      System.out.println(value);
       value.insert((int)indexImproved.get(indexImproved.size() - 2) + 1 , resultChar, 0, resultChar.length);
-      System.out.println(value);
       indexImproved.remove(indexImproved.size() - 1);
     } //slutet av en sträng ligger multi
     else if(indexImproved.size() == 1){
@@ -283,18 +260,33 @@ public class helper {
       int resultInt = valueOneint / valueTwoInt;
       char[] resultChar = ("" + resultInt).toCharArray();
       value.delete(0, value.length());
-      System.out.println(value);
       value.insert(0 , resultChar, 0, resultChar.length);
-      System.out.println(value);
+      indexImproved.remove(0);
     }
   }
 }
-for(int j = 0; j < indexImproved.size(); j++){
-  if(indexImproved.size() == 1){
+while(indexImproved.size() > 0 ){
+  if(indexImproved.size() == 1 && indexImproved.get(0) != 0){
+    char[] valueOneChar = new char[(int)indexImproved.get(indexImproved.size() - 1)];
+    value.getChars(0, (int)indexImproved.get(indexImproved.size() - 1) , valueOneChar, 0);
+    int valueOneint = charArrayToInt(valueOneChar, 0, valueOneChar.length);
+    char[] valueTwoChar = new char[value.length() -  (int)indexImproved.get(indexImproved.size() -1)  - 1];
+    value.getChars( (int)indexImproved.get(indexImproved.size() -1) + 1, value.length(), valueTwoChar, 0);
+    int valueTwoInt = charArrayToInt(valueTwoChar, 0, valueTwoChar.length);
+    int resultInt;
+    if(value.charAt(indexImproved.get(indexImproved.size() - 1)) == '-'){
+      resultInt = valueOneint - valueTwoInt;
+    }
+    else{
+      resultInt = valueOneint + valueTwoInt;
+    }
+    char[] resultChar = ("" + resultInt).toCharArray();
+    value.delete(0, value.length());
+    value.insert((int)indexImproved.get(indexImproved.size() - 1) - valueOneChar.length , resultChar, 0, resultChar.length);
+    indexImproved.remove(indexImproved.size() - 1);
 
   }
   else if(indexImproved.size() > 1 ){
-    System.out.println(value.charAt(indexImproved.get(indexImproved.size() - 1) - 1));
     if( value.charAt(indexImproved.get(indexImproved.size() - 1) - 1) != '-' && value.charAt(indexImproved.get(indexImproved.size() - 1) - 1) != '+'  ){
     char[] valueOneChar = new char[(int)indexImproved.get(indexImproved.size() - 1) - (int)indexImproved.get(indexImproved.size() - 2) - 1];
     value.getChars((int)indexImproved.get(indexImproved.size() - 2) + 1, (int)indexImproved.get(indexImproved.size() - 1) , valueOneChar, 0);
@@ -303,27 +295,37 @@ for(int j = 0; j < indexImproved.size(); j++){
     value.getChars( (int)indexImproved.get(indexImproved.size() -1) + 1, value.length(), valueTwoChar, 0);
     int valueTwoInt = charArrayToInt(valueTwoChar, 0, valueTwoChar.length);
     int resultInt;
-    System.out.println(value.charAt(indexImproved.get(indexImproved.size() - 1)));
     if(value.charAt(indexImproved.get(indexImproved.size() - 1)) == '-'){
       resultInt = valueOneint - valueTwoInt;
     }
     else{
       resultInt = valueOneint + valueTwoInt;
     }
+    if(value.charAt(indexImproved.get(indexImproved.size() - 1)) == '-' && valueTwoInt > valueOneint){
     char[] resultChar = ("" + resultInt).toCharArray();
     value.delete((int)indexImproved.get(indexImproved.size() - 2) + 1, value.length());
-    System.out.println(value);
     value.insert((int)indexImproved.get(indexImproved.size() - 1) - valueOneChar.length , resultChar, 0, resultChar.length);
-    System.out.println(value);
     indexImproved.remove(indexImproved.size() - 1);
+    indexImproved.add(indexImproved.get(indexImproved.size() - 1) + 1);
+    }
+    else{
+    char[] resultChar = ("" + resultInt).toCharArray();
+    value.delete((int)indexImproved.get(indexImproved.size() - 2) + 1, value.length());
+    value.insert((int)indexImproved.get(indexImproved.size() - 1) - valueOneChar.length , resultChar, 0, resultChar.length);
+    indexImproved.remove(indexImproved.size() - 1);
+    }
 
   }
   else if( value.charAt(indexImproved.get(indexImproved.size() - 1) - 1) == '+' ){
     value.setCharAt(indexImproved.get(indexImproved.size() - 1) - 1, '-');
     value.deleteCharAt(indexImproved.get(indexImproved.size() - 1) );
     indexImproved.remove(indexImproved.size() - 1);
-    
-    System.out.print(value);
+
+  }
+  else if( value.charAt(indexImproved.get(indexImproved.size() - 1) - 1) == '-' ){
+    value.setCharAt(indexImproved.get(indexImproved.size() - 1) - 1, '+');
+    value.deleteCharAt(indexImproved.get(indexImproved.size() - 1) );
+    indexImproved.remove(indexImproved.size() - 1);
 
   }
 }
